@@ -39,21 +39,21 @@ public class UserController {
         return "redirect:/";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable("id") long id){
-        userService.delete(id);
-        return "redirect:/";
-    }
-
     @GetMapping("/edit/{id}")
     public String update(@PathVariable("id") long id, Model model){
         model.addAttribute(userService.getUserById(id));
         return "edit";
     }
 
-    @PatchMapping("/edit")
-    public String update(@ModelAttribute("user") User user){
-        userService.update(user);
+    @PatchMapping("/{id}")
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id) {
+        userService.update(id, user);
+        return "redirect:/";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") long id){
+        userService.delete(id);
         return "redirect:/";
     }
 }

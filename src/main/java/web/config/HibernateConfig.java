@@ -23,8 +23,12 @@ import java.util.Properties;
 @PropertySource("classpath:db.properties")
 @ComponentScan("web")
 public class HibernateConfig {
+    private final Environment env;
+
     @Autowired
-    private Environment env;
+    public HibernateConfig(Environment env) {
+        this.env = env;
+    }
 
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -41,11 +45,9 @@ public class HibernateConfig {
                 = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(getDataSource());
         factoryBean.setPackagesToScan("web.model");
-
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         factoryBean.setJpaVendorAdapter(vendorAdapter);
         factoryBean.setJpaProperties(additionalProperties());
-
         return factoryBean;
     }
 

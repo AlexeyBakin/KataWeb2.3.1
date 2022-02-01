@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Edit user</h1>
-<form action="#" th:method="PATCH" th:action="@{/edit}" th:object="${user}">
+<form action="#" th:method="PATCH" th:action="@{/{id}(id=${user.getId()})}" th:object="${user}">
     <p th:text="'User id: ' + ${user.getId()}">ID</p>
 
     <label for="name">Name: </label>
